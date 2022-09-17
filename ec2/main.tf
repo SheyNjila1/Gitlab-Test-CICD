@@ -10,31 +10,31 @@ data "aws_ami" "server_ami" {
   }
 }
 
-resource "aws_launch_template" "web_server" {
-  name_prefix   = "web-server"
-  instance_type = var.instance_type
-  image_id           = data.aws_ami.server_ami.id
-  vpc_security_group_ids = [aws_security_group.web_sg.id]
-  key_name = var.key_name
-  user_data = var.user_data
+# resource "aws_launch_template" "web_server" {
+#   name_prefix   = "web-server"
+#   instance_type = var.instance_type
+#   image_id           = data.aws_ami.server_ami.id
+#   vpc_security_group_ids = [aws_security_group.web_sg.id]
+#   key_name = var.key_name
+#   user_data = var.user_data
 
-  tags = {
-    Name = "web-server"
-  }
-}
+#   tags = {
+#     Name = "web-server"
+#   }
+# }
 
-resource "aws_autoscaling_group" "web_server_asg" {
-  name                = "web-server-asg"
-  vpc_zone_identifier = var.public_subnets
-  min_size            = 2
-  max_size            = 3
-  desired_capacity    = 2
+# resource "aws_autoscaling_group" "web_server_asg" {
+#   name                = "web-server-asg"
+#   vpc_zone_identifier = var.public_subnets
+#   min_size            = 2
+#   max_size            = 3
+#   desired_capacity    = 2
 
-  launch_template {
-    id      = aws_launch_template.web_server.id
-    version = "$Latest"
-  }
-}
+#   launch_template {
+#     id      = aws_launch_template.web_server.id
+#     version = "$Latest"
+#   }
+# }
 
 resource "aws_security_group" "web_sg" {
   name        = "ec2kp"
