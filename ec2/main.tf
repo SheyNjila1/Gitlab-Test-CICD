@@ -2,7 +2,7 @@
 data "aws_ami" "server_ami" {
   most_recent = true
 
-  owners = ["137112412989"]
+  # owners = ["137112412989"]
 
   filter {
     name   = "name"
@@ -37,7 +37,7 @@ resource "aws_autoscaling_group" "web_server_asg" {
 }
 
 resource "aws_security_group" "web_sg" {
-  name        = "web-sg"
+  name        = "ec2kp"
   description = "Allow SSH inbound traffic, and HTTP inbound traffic"
   vpc_id      = var.vpc_id
 
